@@ -25,14 +25,15 @@
     // Verificar si se han enviado los datos del formulario para registro
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre'])) {
         // Obtener los datos del formulario
+        $id_comprador = $conn->real_escape_string($_POST['id_comprador']);
         $nombre = $conn->real_escape_string($_POST['nombre']);
         $apellido = $conn->real_escape_string($_POST['apellido']);
         $email = $conn->real_escape_string($_POST['email']);
         $telefono = $conn->real_escape_string($_POST['telefono']);
 
         // SQL para insertar los datos en la tabla Comprador
-        $sql = "INSERT INTO Comprador (nombre, apellido, email, telefono) 
-                VALUES ('$nombre', '$apellido', '$email', '$telefono')";
+        $sql = "INSERT INTO Comprador (id_comprador, nombre, apellido, email, telefono) 
+                VALUES ('$id_comprador', '$nombre', '$apellido', '$email', '$telefono')";
 
         if ($conn->query($sql) === TRUE) {
             echo "Registro exitoso. <a href='computadores.php'>Ver productos disponibles</a>";
@@ -46,6 +47,11 @@
         <div class="center">
             <h1>Registro</h1>
             <form method="post" action="">
+                <div class="txt_field">
+                    <input type="text" name="id_comprador" required>
+                    <span></span>
+                    <label>Número de cédula</label>
+                </div>
                 <div class="txt_field">
                     <input type="text" name="nombre" required>
                     <span></span>
@@ -76,17 +82,17 @@
             <table>
                 <tr>
                     <th>Nombre</th>
-                    <th>Apellido</th>
+                    <th>Email</th>
                 </tr>
                 <?php
                 // Obtener los compradores
-                $sql = "SELECT id_comprador, nombre, apellido FROM Comprador";
+                $sql = "SELECT id_comprador, nombre, email FROM Comprador";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
                         echo "<tr onclick='selectUser(" . $row['id_comprador'] . ")'>";
                         echo "<td>" . $row['nombre'] . "</td>";
-                        echo "<td>" . $row['apellido'] . "</td>";
+                        echo "<td>" . $row['email'] . "</td>";
                         echo "</tr>";
                     }
                 }
