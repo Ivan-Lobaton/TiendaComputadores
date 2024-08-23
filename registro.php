@@ -34,12 +34,6 @@
         // SQL para insertar los datos en la tabla Comprador
         $sql = "INSERT INTO Comprador (id_comprador, nombre, apellido, email, telefono) 
                 VALUES ('$id_comprador', '$nombre', '$apellido', '$email', '$telefono')";
-
-        if ($conn->query($sql) === TRUE) {
-            echo "Registro exitoso. <a href='computadores.php'>Ver productos disponibles</a>";
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
     }
     ?>
 
@@ -78,7 +72,7 @@
             </form>
         </div>
         <div class="right-panel">
-            <h1>Seleccionar Usuario</h1>
+            <h1>Seleccionar usuario</h1>
             <table>
                 <tr>
                     <th>Nombre</th>

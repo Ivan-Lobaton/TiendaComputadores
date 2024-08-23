@@ -3,10 +3,10 @@ body {
     padding: 0;
     font-family: montserrat;
     background: linear-gradient(120deg, #2980b9, #8e44ad);
-    min-height: 100vh; /* Cambié height a min-height */
+    min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Cambié align-items a flex-start */
+    align-items: flex-start;
     overflow-x: hidden;
 }
 
@@ -15,7 +15,7 @@ body {
     background: white;
     border-radius: 10px;
     padding: 20px;
-    margin: 20px 0; /* Añadí un margen para darle espacio al contenido */
+    margin: 20px 0;
     box-sizing: border-box;
 }
 

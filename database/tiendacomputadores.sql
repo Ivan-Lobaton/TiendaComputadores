@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-08-2024 a las 23:07:49
+-- Tiempo de generación: 23-08-2024 a las 17:52:16
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -40,7 +40,16 @@ CREATE TABLE `comprador` (
 --
 
 INSERT INTO `comprador` (`id_comprador`, `nombre`, `apellido`, `email`, `telefono`) VALUES
-(1032650714, 'Iván', 'Lobaton', 'ivanlobaton@gmail.com', '3145449687');
+(102345678, 'David', 'Jiménez', 'david.jimenez@example.com', '555123465'),
+(123456789, 'Ana', 'García', 'ana.garcia@example.com', '555123456'),
+(234567890, 'Luis', 'Martínez', 'luis.martinez@example.com', '555123457'),
+(345678901, 'Carlos', 'Lopez', 'carlos.lopez@example.com', '555123458'),
+(456789012, 'María', 'Fernández', 'maria.fernandez@example.com', '555123459'),
+(567890123, 'Isabel', 'Gómez', 'isabel.gomez@example.com', '555123460'),
+(678901234, 'Fernando', 'Hernández', 'fernando.hernandez@example.com', '555123461'),
+(789012345, 'Laura', 'Pérez', 'laura.perez@example.com', '555123462'),
+(890123456, 'Javier', 'Ramírez', 'javier.ramirez@example.com', '555123463'),
+(901234567, 'Sara', 'Martín', 'sara.martin@example.com', '555123464');
 
 -- --------------------------------------------------------
 
@@ -65,8 +74,8 @@ INSERT INTO `computador` (`id_computador`, `marca`, `modelo`, `precio`, `stock`)
 (2, 'HP', 'Pavilion x360', 3900000.00, 8),
 (3, 'Lenovo', 'ThinkPad X1', 4835900.00, 5),
 (4, 'Apple', 'MacBook Pro 13\"', 6100000.00, 7),
-(5, 'Acer', 'Aspire TC', 2899900.00, 12),
-(6, 'Asus', 'ROG Strix G10', 5699900.00, 4),
+(5, 'Acer', 'Aspire TC', 2899900.00, 9),
+(6, 'Asus', 'ROG Strix G10', 5699900.00, 3),
 (7, 'HP', 'All-in-One 24', 4500000.00, 6);
 
 -- --------------------------------------------------------
@@ -89,7 +98,11 @@ CREATE TABLE `detalle_factura` (
 --
 
 INSERT INTO `detalle_factura` (`id_detalle`, `id_factura`, `id_computador`, `cantidad`, `precio_unitario`, `subtotal`) VALUES
-(1, 1, 1, 1, 3299900.00, 3299900.00);
+(1, 1, 1, 1, 3299900.00, 3299900.00),
+(2, 2, 5, 1, 2899900.00, 2899900.00),
+(3, 3, 6, 1, 5699900.00, 5699900.00),
+(4, 4, 5, 1, 2899900.00, 2899900.00),
+(5, 5, 5, 1, 2899900.00, 2899900.00);
 
 -- --------------------------------------------------------
 
@@ -109,7 +122,11 @@ CREATE TABLE `factura` (
 --
 
 INSERT INTO `factura` (`id_factura`, `id_comprador`, `fecha_compra`, `total`) VALUES
-(1, 1032650714, '2024-08-21', 3299900.00);
+(1, 789012345, '2024-08-23', 3299900.00),
+(2, 901234567, '2024-08-23', 2899900.00),
+(3, 678901234, '2024-08-23', 5699900.00),
+(4, 102345678, '2024-08-23', 2899900.00),
+(5, 567890123, '2024-08-23', 2899900.00);
 
 --
 -- Índices para tablas volcadas
@@ -157,13 +174,13 @@ ALTER TABLE `computador`
 -- AUTO_INCREMENT de la tabla `detalle_factura`
 --
 ALTER TABLE `detalle_factura`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `id_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
