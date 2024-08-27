@@ -12,6 +12,9 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
+
+// Obtener el ID del comprador seleccionado previamente
+$id_comprador = isset($_POST['id_comprador']) ? $_POST['id_comprador'] : null;
 ?>
 
 <!DOCTYPE html>
@@ -25,31 +28,34 @@ if ($conn->connect_error) {
 <body>
     <div class="center">
         <h1>Productos disponibles</h1>
-        <div class="product-list">
-            <?php
-            $sql = "SELECT id_computador, marca, modelo, precio, stock FROM Computador WHERE stock > 0";
-            $result = $conn->query($sql);
+        <form method="post" action="factura.php">
+            <input type="hidden" name="id_comprador" value="<?php echo $id_comprador; ?>">
+            <div class="product-list">
+                <?php
+                $sql = "SELECT id_computador, marca, modelo, precio, stock FROM Computador WHERE stock > 0";
+                $result = $conn->query($sql);
 
-            if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    echo "<div class='product-item'>";
-                    echo "<h2>" . $row["marca"] . " " . $row["modelo"] . "</h2>";
-                    echo "<p>Precio: $" . $row["precio"] . "</p>";
-                    echo "<p>Stock disponible: " . $row["stock"] . "</p>";
-                    echo "<form method='post' action='factura.php'>";
-                    echo "<input type='hidden' name='id_computador' value='" . $row["id_computador"] . "'>";
-                    echo "<input type='hidden' name='id_comprador' value='{$_POST['id_comprador']}'>";
-                    echo "<input type='submit' value='Comprar'>";
-                    echo "</form>";
-                    echo "</div>";
+                if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                        echo "<div class='product-item'>";
+                        echo "<h2>" . $row["marca"] . " " . $row["modelo"] . "</h2>";
+                        echo "<p>Precio: $" . $row["precio"] . "</p>";
+                        echo "<p>Stock disponible: " . $row["stock"] . "</p>";
+                        echo "<input type='checkbox' name='productos[]' value='" . $row["id_computador"] . "'>";
+                        echo "<label for='cantidad'>Cantidad:</label>";
+                        echo "<input type='number' name='cantidad[" . $row["id_computador"] . "]' value='1' min='1' max='" . $row["stock"] . "'>";
+                        echo "</div>";
+                    }
+                } else {
+                    echo "<p>No hay productos disponibles.</p>";
                 }
-            } else {
-                echo "<p>No hay productos disponibles.</p>";
-            }
-
-            $conn->close();
-            ?>
-        </div>
+                ?>
+            </div>
+            <div class="boton">
+                <input type="submit" value="Comprar">
+            </div>
+        </form>
     </div>
+    <?php $conn->close(); ?>
 </body>
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-08-2024 a las 17:52:16
+-- Tiempo de generación: 27-08-2024 a las 21:28:49
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -70,13 +70,14 @@ CREATE TABLE `computador` (
 --
 
 INSERT INTO `computador` (`id_computador`, `marca`, `modelo`, `precio`, `stock`) VALUES
-(1, 'Dell', 'Inspiron 15', 3299900.00, 9),
+(1, 'Dell', 'Inspiron 15', 3299900.00, 7),
 (2, 'HP', 'Pavilion x360', 3900000.00, 8),
-(3, 'Lenovo', 'ThinkPad X1', 4835900.00, 5),
-(4, 'Apple', 'MacBook Pro 13\"', 6100000.00, 7),
-(5, 'Acer', 'Aspire TC', 2899900.00, 9),
-(6, 'Asus', 'ROG Strix G10', 5699900.00, 3),
-(7, 'HP', 'All-in-One 24', 4500000.00, 6);
+(3, 'Lenovo', 'ThinkPad X1', 4835900.00, 4),
+(4, 'Apple', 'MacBook Pro 13\"', 6100000.00, 6),
+(5, 'HP', 'All-in-One 24', 4500000.00, 5),
+(6, 'Acer', 'Aspire TC', 2899900.00, 11),
+(7, 'Asus', 'ROG Strix G10', 5699900.00, 4),
+(8, 'HP', 'Victus', 2250000.00, 11);
 
 -- --------------------------------------------------------
 
@@ -98,11 +99,17 @@ CREATE TABLE `detalle_factura` (
 --
 
 INSERT INTO `detalle_factura` (`id_detalle`, `id_factura`, `id_computador`, `cantidad`, `precio_unitario`, `subtotal`) VALUES
-(1, 1, 1, 1, 3299900.00, 3299900.00),
-(2, 2, 5, 1, 2899900.00, 2899900.00),
-(3, 3, 6, 1, 5699900.00, 5699900.00),
-(4, 4, 5, 1, 2899900.00, 2899900.00),
-(5, 5, 5, 1, 2899900.00, 2899900.00);
+(1, 1, 1, 2, 3299900.00, 6599800.00),
+(2, 1, 5, 1, 4500000.00, 4500000.00),
+(3, 2, 3, 1, 4835900.00, 4835900.00),
+(4, 2, 6, 1, 2899900.00, 2899900.00),
+(5, 2, 8, 2, 2250000.00, 4500000.00),
+(6, 3, 2, 1, 3900000.00, 3900000.00),
+(7, 4, 3, 1, 4835900.00, 4835900.00),
+(8, 4, 5, 2, 4500000.00, 9000000.00),
+(9, 4, 8, 1, 2250000.00, 2250000.00),
+(10, 5, 1, 1, 3299900.00, 3299900.00),
+(11, 6, 4, 1, 6100000.00, 6100000.00);
 
 -- --------------------------------------------------------
 
@@ -122,11 +129,12 @@ CREATE TABLE `factura` (
 --
 
 INSERT INTO `factura` (`id_factura`, `id_comprador`, `fecha_compra`, `total`) VALUES
-(1, 789012345, '2024-08-23', 3299900.00),
-(2, 901234567, '2024-08-23', 2899900.00),
-(3, 678901234, '2024-08-23', 5699900.00),
-(4, 102345678, '2024-08-23', 2899900.00),
-(5, 567890123, '2024-08-23', 2899900.00);
+(1, 567890123, '2024-08-27', 11099800.00),
+(2, 102345678, '2024-08-27', 12235800.00),
+(3, 789012345, '2024-08-27', 3900000.00),
+(4, 123456789, '2024-08-27', 16085900.00),
+(5, 345678901, '2024-08-27', 3299900.00),
+(6, 678901234, '2024-08-27', 6100000.00);
 
 --
 -- Índices para tablas volcadas
@@ -168,19 +176,19 @@ ALTER TABLE `factura`
 -- AUTO_INCREMENT de la tabla `computador`
 --
 ALTER TABLE `computador`
-  MODIFY `id_computador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_computador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_factura`
 --
 ALTER TABLE `detalle_factura`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `id_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas

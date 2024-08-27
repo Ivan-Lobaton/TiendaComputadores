@@ -1,4 +1,4 @@
-Título del proyecto Generador de facturas | Aplicación Web
+Título del proyecto: Generador de facturas | Aplicación Web
 
 Descripción del proyecto: Este proyecto es una aplicación web desarrollada para gestionar la compra de computadores. El sistema permite registrar compradores, seleccionar un producto disponible, generar facturas, y gestionar el stock de los productos en la base de datos. La aplicación está desarrollada en PHP, HTML, y CSS, y utiliza MySQL como sistema de gestión de bases de datos.
 
@@ -20,9 +20,6 @@ Uso del sistema
 - Selecciona un comprador de la lista para realizar una compra.
 - Navega por la lista de productos disponibles y realiza la compra.
 - Visualiza la factura generada automáticamente después de la compra.
-
-
-
 
 Creación de la base de datos por código SQL:
 
