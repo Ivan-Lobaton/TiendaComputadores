@@ -21,6 +21,10 @@ Uso del sistema
 - Navega por la lista de productos disponibles y realiza la compra.
 - Visualiza la factura generada automáticamente después de la compra.
 
+
+##############################################################################################################################
+
+
 Creación de la base de datos por código SQL:
 
 -- Crear la base de datos si no existe
@@ -71,7 +75,8 @@ INSERT INTO Computador (marca, modelo, precio, stock) VALUES
 ('Apple', 'MacBook Pro 13"', 6100000.00, 7),
 ('Acer', 'Aspire TC', 2899900.00, 12),
 ('Asus', 'ROG Strix G10', 5699900.00, 4),
-('HP', 'All-in-One 24', 4500000.00, 6);
+('HP', 'All-in-One 24', 4500000.00, 6),
+('HP', 'Victus', 2350000.00, 15);
 
 
 

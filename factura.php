@@ -78,16 +78,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Mostrar la factura
                 $factura_html = "
                     <h1>Factura</h1>
-                    <p>Factura N°: $id_factura</p>
-                    <p>Fecha de compra: $fecha_compra</p>
-                    <p>Comprador: " . $comprador['nombre'] . " " . $comprador['apellido'] . "</p>
-                    <table>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio unitario</th>
-                            <th>Subtotal</th>
-                        </tr>
+                    <div class='factura-info'>
+                        <p><strong>Factura N°:</strong> $id_factura</p>
+                        <p><strong>Fecha de compra:</strong> $fecha_compra</p>
+                        <p><strong>Comprador:</strong> " . $comprador['nombre'] . " " . $comprador['apellido'] . "</p>
+                    </div>
+                    <table class='factura-table'>
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio unitario</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                 ";
 
                 foreach ($productos as $id_computador) {
@@ -110,10 +115,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 $factura_html .= "
-                        <tr>
-                            <td colspan='3'><strong>Total</strong></td>
-                            <td><strong>$" . $total . "</strong></td>
-                        </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan='3'><strong>Total</strong></td>
+                                <td><strong>$" . $total . "</strong></td>
+                            </tr>
+                        </tfoot>
                     </table>
                 ";
             } else {
@@ -145,16 +153,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result_factura->num_rows > 0) {
             $factura_html = "
                 <h1>Factura consultada</h1>
-                <table>
-                    <tr>
-                        <th>Factura N°</th>
-                        <th>Fecha de compra</th>
-                        <th>Comprador</th>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Precio unitario</th>
-                        <th>Subtotal</th>
-                    </tr>
+                <table class='factura-table'>
+                    <thead>
+                        <tr>
+                            <th>Factura N°</th>
+                            <th>Fecha de compra</th>
+                            <th>Comprador</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio unitario</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
             ";
 
             while ($factura = $result_factura->fetch_assoc()) {
@@ -171,7 +182,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ";
             }
 
-            $factura_html .= "</table>";
+            $factura_html .= "</tbody></table>";
         } else {
             $factura_html = "<p>No se encontró la factura seleccionada.</p>";
         }
@@ -206,19 +217,20 @@ $conn->close();
                     <?php
                     // Obtener las facturas disponibles
                     $conn = new mysqli($servername, $username, $password, $dbname);
-                    $sql_facturas = "SELECT id_factura, fecha_compra, (SELECT CONCAT(nombre, ' ', apellido) FROM Comprador WHERE id_comprador = Factura.id_comprador) AS nombre_comprador FROM Factura";
-                    $result_facturas = $conn->query($sql_facturas);
-                    if ($result_facturas->num_rows > 0) {
-                        while ($factura = $result_facturas->fetch_assoc()) {
-                            echo '<option value="' . $factura['id_factura'] . '">Factura N° ' . $factura['id_factura'] . ' - ' . $factura['nombre_comprador'] . ' - ' . $factura['fecha_compra'] . '</option>';
-                        }
-                    }
-                    $conn->close();
-                    ?>
-                </select>
-            </div>
-            <input type="submit" value="Consultar Factura">
-        </form>
-    </div>
+                    $sql_facturas = "SELECT id_factura, fecha_compra, (SELECT CONCAT(nombre, ' ', apellido) FROM Comprador
+                    WHERE Comprador.id_comprador = Factura.id_comprador) AS comprador FROM Factura"; $result_facturas = $conn->query($sql_facturas);
+                                    if ($result_facturas->num_rows > 0) {
+                                        while ($factura = $result_facturas->fetch_assoc()) {
+                                            echo "<option value='" . $factura['id_factura'] . "'>Factura #" . $factura['id_factura'] . " - " . $factura['fecha_compra'] . " - " . $factura['comprador'] . "</option>";
+                                        }
+                                    }
+                    
+                                    $conn->close();
+                                    ?>
+                                </select>
+                            </div>
+                            <input type="submit" value="Consultar">
+                        </form>
+                    </div>
 </body>
-</html>
+</html>                    

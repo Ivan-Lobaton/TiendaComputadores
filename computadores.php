@@ -26,8 +26,13 @@ $id_comprador = isset($_POST['id_comprador']) ? $_POST['id_comprador'] : null;
     <link rel="stylesheet" href="./Styles/computadores.css">
 </head>
 <body>
+    <header>
+        <h1>CompuMarket</h1>
+        <p>Encuentra los mejores computadores</p>
+    </header>
+
     <div class="center">
-        <h1>Productos disponibles</h1>
+        <h2>Productos disponibles</h2>
         <form method="post" action="factura.php">
             <input type="hidden" name="id_comprador" value="<?php echo $id_comprador; ?>">
             <div class="product-list">
@@ -38,16 +43,19 @@ $id_comprador = isset($_POST['id_comprador']) ? $_POST['id_comprador'] : null;
                 if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
                         echo "<div class='product-item'>";
-                        echo "<h2>" . $row["marca"] . " " . $row["modelo"] . "</h2>";
-                        echo "<p>Precio: $" . $row["precio"] . "</p>";
-                        echo "<p>Stock disponible: " . $row["stock"] . "</p>";
-                        echo "<input type='checkbox' name='productos[]' value='" . $row["id_computador"] . "'>";
-                        echo "<label for='cantidad'>Cantidad:</label>";
-                        echo "<input type='number' name='cantidad[" . $row["id_computador"] . "]' value='1' min='1' max='" . $row["stock"] . "'>";
+                        echo "<h3>" . $row["marca"] . " " . $row["modelo"] . "</h3>";
+                        echo "<p>Precio: <span>$" . number_format($row["precio"], 2) . "</span></p>";
+                        echo "<p>Stock disponible: <span>" . $row["stock"] . "</span></p>";
+                        echo "<div class='checkbox-container'>";
+                        echo "<input type='checkbox' id='producto_" . $row["id_computador"] . "' name='productos[]' value='" . $row["id_computador"] . "'>";
+                        echo "<label for='producto_" . $row["id_computador"] . "'>Seleccionar</label>";
+                        echo "</div>";
+                        echo "<label for='cantidad_" . $row["id_computador"] . "'>Cantidad:</label>";
+                        echo "<input type='number' id='cantidad_" . $row["id_computador"] . "' name='cantidad[" . $row["id_computador"] . "]' value='1' min='1' max='" . $row["stock"] . "'>";
                         echo "</div>";
                     }
                 } else {
-                    echo "<p>No hay productos disponibles.</p>";
+                    echo "<p>No hay productos disponibles en este momento.</p>";
                 }
                 ?>
             </div>
@@ -56,6 +64,11 @@ $id_comprador = isset($_POST['id_comprador']) ? $_POST['id_comprador'] : null;
             </div>
         </form>
     </div>
+
+    <footer>
+        <p>&copy; 2024 CompuMarket. Todos los derechos reservados.</p>
+    </footer>
+
     <?php $conn->close(); ?>
 </body>
 </html>

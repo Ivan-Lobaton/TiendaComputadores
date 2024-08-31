@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="./Styles/registro.css">
 </head>
 <body>
+    <div class="notification" id="welcomeNotification">
+        ¡Bienvenido! Registro exitoso.
+    </div>
     <?php
     // Configuración de la base de datos
     $servername = "localhost";
@@ -30,16 +33,23 @@
         $apellido = $conn->real_escape_string($_POST['apellido']);
         $email = $conn->real_escape_string($_POST['email']);
         $telefono = $conn->real_escape_string($_POST['telefono']);
-
+    
         // SQL para insertar los datos en la tabla Comprador
         $sql = "INSERT INTO Comprador (id_comprador, nombre, apellido, email, telefono) 
                 VALUES ('$id_comprador', '$nombre', '$apellido', '$email', '$telefono')";
+    
+        if ($conn->query($sql) === TRUE) {
+            echo "<script>document.getElementById('welcomeNotification').style.display = 'block';</script>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
+    
     ?>
 
     <div class="container">
         <div class="center">
-            <h1>Registro</h1>
+            <h1>Registro del comprador</h1>
             <form method="post" action="">
                 <div class="txt_field">
                     <input type="text" name="id_comprador" required>
@@ -110,5 +120,19 @@
     // Cerrar conexión
     $conn->close();
     ?>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var notification = document.getElementById('welcomeNotification');
+            if (notification.style.display === 'block') {
+                setTimeout(function() {
+                    notification.style.opacity = '0';
+                    setTimeout(function() {
+                        notification.style.display = 'none';
+                    }, 500);
+                }, 3000);
+            }
+    });
+</script>
 </body>
 </html>
